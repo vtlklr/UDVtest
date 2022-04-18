@@ -1,4 +1,8 @@
-package library
+package repo
+
+import (
+	_ "github.com/jinzhu/gorm"
+)
 
 type Usage struct {
 	UsageID    uint   `gorm:"primary_key"`

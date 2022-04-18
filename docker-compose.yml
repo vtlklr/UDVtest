@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:13.3
     healthcheck:
-      test: "pg_isready -h postgres -p 5432 -q -U postgres"
+      test: ["CMD-SHELL", "pg_isready -U udv_test"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -13,14 +13,14 @@ services:
       - POSTGRES_DB=udv_test
       - POSTGRES_USER=udv_test
       - POSTGRES_PASSWORD=password
-#    volumes:
-#      - ./initdb/1-init.sql:/docker-entrypoint-initdb.d/init.sql
+
   app:
     build: .
     ports:
       - 8000:8000
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       - DATABASE_HOST=db
       - DATABASE_NAME=udv_test

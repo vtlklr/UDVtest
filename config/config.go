@@ -13,17 +13,17 @@ type Config struct {
 func GetConfig() Config {
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = ":8000" //localhost
+		port = ":8000"
 	}
 
 	host := os.Getenv("DATABASE_HOST")
 	if host == "" {
-		host = "localhost" //localhost
+		host = "localhost"
 	}
 
 	name := os.Getenv("DATABASE_NAME")
 	if name == "" {
-		name = "udv_test" //udv_test
+		name = "udv_test"
 	}
 
 	pass := os.Getenv("DATABASE_PASSWORD")
@@ -33,7 +33,7 @@ func GetConfig() Config {
 
 	usr := os.Getenv("DATABASE_USER")
 	if usr == "" {
-		usr = "udv_test" //udv_test
+		usr = "udv_test"
 	}
 
 	fmt.Printf("user %s. password %s. port %s. host %s. \n", usr, pass, port, host)

@@ -37,8 +37,6 @@ func (s *Store) GetBookList(page, size int) (handlers.BookResponseList, error) {
 		}
 	}(rows)
 	if err != nil {
-		//w.WriteHeader(http.StatusForbidden)
-		//fmt.Println(err.Error())
 		return nil, err
 	}
 	for rows.Next() {
@@ -79,7 +77,6 @@ func (s *Store) GetHistory(id int) (handlers.HistoryResponseList, error) {
 		}
 	}(rows)
 	if err != nil {
-		//fmt.Println(err.Error())
 		return historyList, err
 	}
 	for rows.Next() {
@@ -101,7 +98,6 @@ func (s *Store) GetBook(id int) (handlers.BookResponse, error) {
 		Joins("INNER JOIN publishings ON books.publishing_id = publishings.publishing_id").
 		Where("books.book_id = ?", id).
 		First(&book).Error; err != nil {
-		//fmt.Println(err.Error())
 		return book, err
 	}
 	return book, nil

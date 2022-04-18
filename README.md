@@ -22,6 +22,7 @@
 /Postman/UDV.postman_collection.json - Конфиг для тестирования API запросов через Postman
 
 Схема БД:
+
 ![img_1.png](img_1.png)
 
 API:

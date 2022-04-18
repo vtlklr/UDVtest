@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:13.3
+    healthcheck:
+      test: "pg_isready -h postgres -p 5432 -q -U postgres"
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=udv_test
+      - POSTGRES_USER=udv_test
+      - POSTGRES_PASSWORD=password
+#    volumes:
+#      - ./initdb/1-init.sql:/docker-entrypoint-initdb.d/init.sql
+  app:
+    build: .
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_NAME=udv_test
+      - PORT=:8000
+      - DATABASE_PASSWORD=password
+      - DATABASE_USER=udv_test
+    links:
+      - db

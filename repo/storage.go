@@ -17,7 +17,7 @@ type Store struct {
 	db  *gorm.DB
 }
 
-func (s *Store) GetBookList(page, size int) (handlers.BookResponseList, error) {
+func (s *Store) GetBookList(offset, size int) (handlers.BookResponseList, error) {
 
 	var books handlers.BookResponseList
 	var book handlers.BookResponse
@@ -27,7 +27,7 @@ func (s *Store) GetBookList(page, size int) (handlers.BookResponseList, error) {
 		Select("book_id, title, description, authors, year, edition, " +
 			"publishings.name as publishing_name").
 		Joins("INNER JOIN publishings ON books.publishing_id = publishings.publishing_id").
-		Offset(page).
+		Offset(offset).
 		Limit(size).
 		Rows()
 	defer func(rows *sql.Rows) {
